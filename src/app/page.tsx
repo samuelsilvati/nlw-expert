@@ -1,6 +1,7 @@
 import Image from 'next/image'
 
 import logo from '@/assets/logo-nwl-expert.svg'
+import NewNoteCard from '@/components/new-note-card'
 import NoteCard from '@/components/note-card'
 export default function Home() {
   return (
@@ -16,15 +17,7 @@ export default function Home() {
       <div className="h-px bg-slate-700" />
 
       <div className="grid auto-rows-[250px] grid-cols-3 gap-6">
-        <div className="space-y-3 rounded-md bg-slate-700 p-5">
-          <span className="text-sm font-medium text-slate-200">
-            Adicionar nota
-          </span>
-          <p className="text-sm leading-6 text-slate-400">
-            Grave uma nota em áudio que será convetida para texto
-            automaticamente
-          </p>
-        </div>
+        <NewNoteCard />
         <NoteCard />
         <NoteCard />
         <NoteCard />
