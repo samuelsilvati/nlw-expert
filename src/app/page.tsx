@@ -46,7 +46,7 @@ export default function Home() {
         )
       : notes
   return (
-    <main className="mx-auto my-12 max-w-6xl space-y-6">
+    <main className="mx-auto my-12 max-w-6xl space-y-6 px-5">
       <Image src={logo} alt="NLW Expert logo" />
       <form action="" className="">
         <input
@@ -58,7 +58,7 @@ export default function Home() {
       </form>
       <div className="h-px bg-slate-700" />
 
-      <div className="grid auto-rows-[250px] grid-cols-3 gap-6">
+      <div className="grid auto-rows-[250px] grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         <NewNoteCard onNoteCreated={onNoteCreated} />
 
         {filteredNotes.map((note) => {
