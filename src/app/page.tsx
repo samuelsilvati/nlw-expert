@@ -1,14 +1,37 @@
+'use client'
 import Image from 'next/image'
+import { useState } from 'react'
 
 import logo from '@/assets/logo-nwl-expert.svg'
 import NewNoteCard from '@/components/new-note-card'
 import NoteCard from '@/components/note-card'
 
-const note = {
-  date: new Date(),
-  content: 'hello world',
+interface Note {
+  id: string
+  date: Date
+  content: string
 }
+
 export default function Home() {
+  const [notes, setNotes] = useState<Note[]>(() => {
+    const notesOnStorage = localStorage.getItem('notes')
+    if (notesOnStorage) {
+      return JSON.parse(notesOnStorage)
+    }
+    return []
+  })
+
+  function onNoteCreated(content: string) {
+    const newNote = {
+      id: crypto.randomUUID(),
+      date: new Date(),
+      content,
+    }
+    const notesArray = [newNote, ...notes]
+    setNotes(notesArray)
+
+    localStorage.setItem('notes', JSON.stringify(notesArray))
+  }
   return (
     <main className="mx-auto my-12 max-w-6xl space-y-6">
       <Image src={logo} alt="NLW Expert logo" />
@@ -22,11 +45,11 @@ export default function Home() {
       <div className="h-px bg-slate-700" />
 
       <div className="grid auto-rows-[250px] grid-cols-3 gap-6">
-        <NewNoteCard />
-        <NoteCard note={note} />
-        <NoteCard note={note} />
-        <NoteCard note={note} />
-        <NoteCard note={note} />
+        <NewNoteCard onNoteCreated={onNoteCreated} />
+
+        {notes.map((note) => {
+          return <NoteCard note={note} key={note.id} />
+        })}
       </div>
     </main>
   )
