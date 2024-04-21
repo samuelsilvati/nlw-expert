@@ -15,9 +15,11 @@ interface Note {
 export default function Home() {
   const [search, setSearch] = useState('')
   const [notes, setNotes] = useState<Note[]>(() => {
-    const notesOnStorage = localStorage.getItem('notes')
-    if (notesOnStorage) {
-      return JSON.parse(notesOnStorage)
+    if (typeof window !== 'undefined') {
+      const notesOnStorage = localStorage.getItem('notes')
+      if (notesOnStorage) {
+        return JSON.parse(notesOnStorage)
+      }
     }
     return []
   })
